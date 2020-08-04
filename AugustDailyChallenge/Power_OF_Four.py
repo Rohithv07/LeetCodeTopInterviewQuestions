@@ -13,7 +13,7 @@ Input: 5
 Output: false
 
 
-Solution:
+Solution1:
 
 class Solution:
     def isPowerOfFour(self, num: int) -> bool:
@@ -21,3 +21,18 @@ class Solution:
             return False
         logarithmic_check = math.log(num, 4)
         return logarithmic_check == int(logarithmic_check)
+
+Solution 2:(Using Binary)
+class Solution:
+    def isPowerOfFour(self, num: int) -> bool:
+        if num < 0:
+            return False
+        
+        binary = bin(num).replace('0b', '')
+        counter_1 = binary.count("1")
+        counter_0 = binary.count("0")
+        
+        if counter_1 == 1 and counter_0 % 2 == 0:
+            return True
+        
+        return False
