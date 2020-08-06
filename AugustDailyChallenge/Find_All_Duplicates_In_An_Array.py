@@ -12,7 +12,7 @@ Output:
 [2,3]
 
 
-Solution:
+Solution Python:
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
         li = []
@@ -22,3 +22,19 @@ class Solution:
                 
         return li
         
+
+Solution Java:
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> output = new ArrayList();
+        for (int i = 0; i < nums.length; i++){
+            int index = Math.abs(nums[i]) - 1;
+            if (nums[index] < 0)
+                output.add(index + 1);
+            nums[index] = -nums[index];
+        }
+        return output;
+    }
+}
+
+// This same can be applied in the python code also.......
