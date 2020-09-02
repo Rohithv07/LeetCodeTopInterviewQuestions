@@ -34,7 +34,7 @@ def containsCycle(head:ListNode):
 		return False
  	dictionary = collections.defaultdict(ListNode)
  	while head:
- 		if dictionary[head]:
+ 		if head in dictionary:
  			return True
  		dictionary[head] = True
  		head = head.next
