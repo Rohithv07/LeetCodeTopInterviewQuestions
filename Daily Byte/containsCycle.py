@@ -13,7 +13,7 @@ class ListNode:
 		self.x = x
 		self.next = None
 
-def containsCycle(head):
+def containsCycle(head:ListNode):
 	if head == None or head.next == None:
 		return False
 
