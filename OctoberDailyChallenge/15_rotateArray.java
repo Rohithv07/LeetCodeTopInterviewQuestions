@@ -40,3 +40,20 @@ class Solution {
         }
     }
 }
+
+
+
+
+Extra Note: Left rotation by k point
+class Solution {
+	public void rotate(int [] nums, int n, int k) {
+		int mod = k % n;
+		for (int i=0; i<n; i++) {
+			nums[i] = nums[(i+mod)%n];	
+		}
+	}
+}
+
+
+
+
