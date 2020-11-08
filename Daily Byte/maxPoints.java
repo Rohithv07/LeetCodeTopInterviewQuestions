@@ -10,24 +10,29 @@ coins = [300] and E = 200, return 0
 // I considered the array is alreadt sorted
 import java.util.*;
 public class Solution {
-	public static int maxPoints(int [] coins, int energy) {
-		int length = coins.length;
-		if (coins.length == 1 && energy < coins[0])
-			return 0;
-		int points = 0;
-		energy += coins[length-1];
-		points -= 1;
-		for (int i=0; i<coins.length; i++) {
-			if (energy >= coins[i]) {
-				energy -= coins[i];
-				points += 1;
-			}
-			else
-				return points;
+	public int bagOfTokensScore(int[] tokens, int P) {
+		if (tokens.length == 1 && tokens[0] > P)
+		    return 0;
+		Arrays.sort(tokens);
+		int score = 0;
+		int maxScore = 0;
+		int left = 0;
+		int right = tokens.length - 1;
+		while (left <= right) {
+		    if (P >= tokens[left]) {
+			score ++;
+			P -= tokens[left++];
+			maxScore = Math.max(maxScore, score);
+		    }
+		    else if (score > 0) {
+			score --;
+			P += tokens[right--];
+		    }
+		    else
+			return maxScore;
 		}
-		return 0;
-
-	}
+		return maxScore;
+    }
 	public static void main(String [] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
