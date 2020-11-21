@@ -32,7 +32,7 @@ Constraints:
 digits[i].length == 1
 digits[i] is a digit from '1' to '9'.
 All the values in digits are unique.
-1 <= n <= 109
+1 <= n <= 109     
 
 
 class Solution:
