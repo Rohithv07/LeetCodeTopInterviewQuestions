@@ -40,33 +40,36 @@ Output 2:
 public class Solution {
     // DO NOT MODIFY THE LIST. IT IS READ ONLY
     public ArrayList<Integer> searchRange(final List<Integer> A, int B) {
-        int st = 0;
-        int end = A.size()-1;
+        int length = A.size();
+        int left = 0;
+        int right = length - 1;
         ArrayList<Integer> result = new ArrayList<>();
-        while(st <= end) {
-            int mid = (st+end)/2;
-            int stPos = -1;
-            int endPos = -1;
-            if(A.get(mid) == B) {
-                int k = mid;
-                while(k-1 >= 0 && A.get(k-1) == B) {
-                    k--;
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+            if (A.get(middle) == B) {
+                int currentIndex = middle;
+                int startingPosition = -1;
+                int endingPosition = -1;
+                while (currentIndex-1 >= 0 && A.get(currentIndex-1) == B) {
+                    currentIndex -= 1;
                 }
-                 stPos = k;
-                k = mid;
-                while(k+1 <= A.size()-1 && A.get(k+1) == B) {
-                    k++;
-                }
-                 endPos = k;
-                result.add(stPos);
-                result.add(endPos);
+                startingPosition = currentIndex;
+                currentIndex = middle;
+                while (currentIndex+1 < length && A.get(currentIndex+1) == B)
+                    currentIndex += 1;
+                endingPosition = currentIndex;
+                result.add(startingPosition);
+                result.add(endingPosition);
                 return result;
-            } else if (A.get(mid) < B) st = mid+1;
-            else end = mid-1;
+            }
+            else if (A.get(middle) < B)
+                left = middle + 1;
+            else
+                right = middle - 1;
         }
         result.add(-1);
         result.add(-1);
         return result;
-        
     }
 }
+
