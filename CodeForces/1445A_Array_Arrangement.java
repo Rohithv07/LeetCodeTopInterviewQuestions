@@ -1,3 +1,5 @@
+/*
+
 You are given two arrays a and b, each consisting of n positive integers, and an integer x. Please determine if one can rearrange the elements of b so that ai+bi≤x holds for each i (1≤i≤n).
 
 Input
@@ -49,7 +51,7 @@ In the third test case, no matter how one shuffles array b, a4+b4=4+b4>4.
 In the fourth test case, there is only one rearrangement of array b and it doesn't satisfy the condition since 5+5>5.
 
 
-
+*/
 
 
 import java.util.*;
