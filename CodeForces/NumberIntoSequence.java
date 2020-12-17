@@ -1,17 +1,19 @@
-import java.util.*;
-public class NumberIntoSequence {
-	public static void main(String [] args) {
+import java.util.Scanner;
+
+public class Solution {
+
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int test = sc.nextInt();
-		while (test-- > 0) {
+		int t = sc.nextInt();
+		while (t-- > 0) {
 			long n = sc.nextLong();
 			long temp = n;
-			int maxCount = 0;
-			int maxInt = 0;
-			for (int i=2; i<=Math.sqrt(n); i++) {
+			long maxCount = 0;
+			long maxInt = 0;
+			for (int i = 2; i <= Math.sqrt(n); i++) {
 				int count = 0;
 				while (n % i == 0) {
-					count += 1;
+					count++;
 					n /= i;
 				}
 				if (maxCount < count) {
@@ -22,15 +24,15 @@ public class NumberIntoSequence {
 			if (maxInt == 0) {
 				System.out.println(1);
 				System.out.println(temp);
-			}
-			else {
+			} else {
 				System.out.println(maxCount);
 				while (temp % (maxInt * maxInt) == 0) {
-					System.out.println(maxInt + " ");
-					temp /= maxInt;
+					System.out.print(maxInt + " ");
+					temp = temp / maxInt;
 				}
 				System.out.println(temp);
 			}
 		}
 	}
+
 }
