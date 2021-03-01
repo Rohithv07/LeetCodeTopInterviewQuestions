@@ -7,11 +7,6 @@ class NearestRestaurant {
 		if (restaurant.size() < howMany || howMany == 0)
 			return null;
 		int[][] restaurants = restaurant.stream().map(  u  ->  u.stream().mapToInt(i->i).toArray()  ).toArray(int[][]::new);
-		// int [][] restaurants = new int[restaurant.size()][];
-		// for (int i=0; i<restaurant.size(); i++) {
-		// 	List<Integer> row = new ArrayList<>();
-		// 	restaurants[i] = row.toArray(new int[row.size()]);
-		// }
 		Map<int [], Integer> trackDistance = new HashMap<>();
 		for (int [] rest : restaurants) {
 			int x = rest[0];
