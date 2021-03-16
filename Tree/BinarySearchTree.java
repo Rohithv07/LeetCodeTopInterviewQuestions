@@ -62,6 +62,31 @@ class BinarySearchTree {
 			return isPresent(key, node.right);
 		return isPresent(key, node.left);
 	}
+
+	TreeNode deleteNode(int key, TreeNode root) {
+		if (root == null)
+			return null;
+		if (root.value < key)
+			root.right = deleteNode(key, root.right);
+		else if (root.value > key)
+			root.left = deleteNode(key, root.left);
+		else {
+			if (root.left == null)
+				return root.right;
+			if (root.right == null)
+				return root.left;
+			TreeNode minimum = findMinimum(root.right);
+			root.value = minimum.value;
+			root.right = deleteNode(key, root.right);
+		}
+		return root;
+	}
+
+	TreeNode findMinimum(TreeNode node) {
+		while (node != null)
+			node = node.left;
+		return node;
+	}
 	public static void main(String [] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 		tree.insertToBST(50);
@@ -74,6 +99,8 @@ class BinarySearchTree {
 		tree.inorderPrint();
 		System.out.println(tree.searchAKey(40));
 		System.out.println(tree.searchAKey(100));
+		tree.root = tree.deleteNode(60, tree.root);
+		tree.inorderPrint();
 	}
 
 
