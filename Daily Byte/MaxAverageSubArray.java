@@ -27,8 +27,8 @@ public class MaxAverageSubArray {
 		}
 		int maxSum = sum;
 		for (int i=k; i<n; i++) {
-			int currentSum = sum + nums[i] - nums[i - k];
-			maxSum = Math.max(currentSum, maxSum);
+			sum = sum + nums[i] - nums[i - k];
+			maxSum = Math.max(sum, maxSum);
 		}
 		return (double)((double) maxSum / (double) k);
 	}
