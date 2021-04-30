@@ -50,7 +50,7 @@ public class BerlandRegional {
 						//answer[i - 1] += (v.get(v.size() - 1) - delete);
 					}
 					// System.out.println();
-					System.out.print(delete + " ");
+					//System.out.print(delete + " ");
 					// System.out.print(v.get(v.size() - 1) + " ");
 					answer[i - 1] += (v.get(v.size() - 1) - delete);
 				}
