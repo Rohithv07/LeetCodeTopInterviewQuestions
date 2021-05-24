@@ -18,19 +18,20 @@ import java.util.*;
 public class OneFourth {
 
 	public static int oneFourth(int [] nums, int n) {
-		int count = 0;
-		int previous = nums[0];
+		if (n == 1)
+			return nums[0];
+		int count = 1;
 		int limit = n / 4;
 		for (int i=1; i<n; i++) {
 			int current = nums[i];
-			if (current == previous) {
+			if (nums[i - 1] == nums[i]) {
 				count += 1;
-				if (count > limit)
-					return current;
 			}
 			else {
 				count = 1;
-				previous = current;
+			}
+			if (count > limit) {
+				return nums[i];
 			}
 		}
 		return -1;
