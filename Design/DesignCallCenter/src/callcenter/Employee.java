@@ -13,7 +13,7 @@ public class Employee {
 	protected String title;
 	protected String gender;
 	protected Rank rank;
-	private Call call;
+	public Call call;
 	private CallState callState;
 
 	public Employee(String name, String address, String title, String gender, Rank rank) {
