@@ -20,10 +20,10 @@ class Solution {
         return size;
     }
     
-    public int binarySearchIndex(int [] dp, int left, int right, int key) {
+   public int binarySearchIndex(int [] dp, int left, int right, int key) {
         int result = -1;
         while (left <= right) {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
             if (dp[mid] >= key) {
                 result = mid;
                 right = mid - 1;
