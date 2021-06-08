@@ -82,35 +82,67 @@ class Solution {
 
 
 
-// dfs possible solution and not tested
+// dfs solution. Have the bfs function but it is not called, the dfs is used here
 
-public static void main(String[] args) {
-	int num = 104;
-	Set<Integer> set = new HashSet<>();
-	for(int i=0;i<10;i++) {
-		dfs(num, set, i);
-	}
-	List<Integer> res = new ArrayList<>(set);
-	Collections.sort(res);
-	System.out.println(res);
-}
-
-static void dfs(int num, Set<Integer> res, int tmp) {
-	if(tmp > num)
-		return;
-	if(!res.add(tmp))
-		return;
-	if( tmp%10 == 0) {
-		dfs(num, res, tmp * 10 + 1);
-	}else if(tmp%10 == 9) {
-		dfs(num, res, tmp * 10 + 8);
-	}else {
-		dfs(num, res, tmp * 10 + tmp%10 - 1);
-		dfs(num, res, tmp * 10 + tmp%10 + 1);
-	}
-}
-
-// find the max of the list
-
-
-
+class Solution {
+    
+    
+    // can also be done using dfs
+    static void bfs(long n, int i, List<Integer> results) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(i);
+        while (!queue.isEmpty()) {
+            i = queue.poll();
+            if (i <= n) {
+                results.add(i);
+                int lastDigit = i % 10;
+                if (lastDigit == 0) {
+                    queue.add((i * 10) + (lastDigit + 1));
+                }
+                else if (lastDigit == 9) {
+                    queue.add((i * 10) + (lastDigit - 1));
+                }
+                else {
+                    queue.add((i * 10) + (lastDigit + 1));
+                    queue.add((i * 10) + (lastDigit - 1));
+                }
+            }
+        }
+    }
+    
+    static void dfs(long num, int i, Set<Integer> visited) {
+        if (visited.contains(i))
+            return;
+        if (i > num) {
+            return;
+        }
+        visited.add(i);
+        int lastDigit = i % 10;
+        if (lastDigit == 0) {
+            dfs(num, (i * 10) + (lastDigit + 1), visited);
+        }
+        else if (lastDigit == 9) {
+            dfs(num, (i * 10) + (lastDigit - 1), visited);
+        }
+        else {
+            dfs(num, (i * 10) + (lastDigit + 1), visited);
+            dfs(num, (i * 10) + (lastDigit - 1), visited);
+        }
+    }
+    
+    static long jumpingNums(long n) {
+        // code here
+        if (n <= 10)
+            return n;
+        Set<Integer> visited = new HashSet<>();
+        for (int i=0; i<10 && i <= n; i++) {
+            dfs(n, i, visited);
+        }
+        List<Integer> results = new ArrayList<>(visited);
+        int max = Integer.MIN_VALUE;
+        for (int number : results) {
+            max = Math.max(number, max);
+        }
+        return max;
+    }
+};
