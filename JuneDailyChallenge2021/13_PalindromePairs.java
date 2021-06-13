@@ -25,7 +25,6 @@ Constraints:
 words[i] consists of lower-case English letters.
 
 
-
 //https://leetcode.com/problems/palindrome-pairs/discuss/79195/O(n-*-k2)-java-solution-with-Trie-structure
 
 class Solution {
