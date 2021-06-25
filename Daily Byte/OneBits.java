@@ -20,6 +20,39 @@ bits = [1, 1, 1, 1, 1], return 4.
 import java.util.*;
 
 public class OneBits {
+
+	public static int optimisedOneBit(int [] arr) {
+		int i = 0;
+		int j = 0;
+		int maxValue = 0;
+		int currentValue = 0;
+		int zeroCount = 0;
+		while (j < arr.length) {
+			if (arr[j] == 0) {
+				if (zeroCount == 0) {
+					zeroCount += 1;
+					j += 1;
+				}
+				else {
+					while (arr[i] != 0) {
+						i += 1;
+						currentValue -= 1;
+					}
+					i += 1;
+					j += 1;
+				}
+			}
+			else {
+				currentValue += 1;
+				j += 1;
+			}
+			maxValue = Math.max(maxValue, currentValue);
+		}
+		if (maxValue == arr.length)
+			return maxValue - 1;
+		return maxValue;
+	}
+
 	public static void main(String [] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
@@ -44,5 +77,6 @@ public class OneBits {
 			countZero = Math.max(countZero, currentCount);
 		}
 		System.out.println(countZero);
+		System.out.println("Output from optimised : " + optimisedOneBit(nums));
 	}
 }
