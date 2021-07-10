@@ -19,6 +19,7 @@ public class ChainSize {
 		Map<String, Integer> map = new HashMap<>();
 		int length = words.length;
 		int maxChainSize = 0;
+		Arrays.sort(words, (a, b) -> Integer.compare(a.length(), b.length()));
 		for (String word : words) {
 			map.put(word, 1);
 			for (int i=0; i<word.length(); i++) {
