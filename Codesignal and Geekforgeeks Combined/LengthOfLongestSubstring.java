@@ -44,3 +44,25 @@ class Solution{
         return maxLength;
     }
 }
+
+
+class Solution{
+    int longestUniqueSubsttr(String s){
+        if (s == null || s.length() == 0)
+            return 0;
+        int [] count = new int [26];
+        int start = 0;
+        int result = 0;
+        int length = s.length();
+        for (int end=0; end<length; end++) {
+            char current = s.charAt(end);
+            if (count[current - 'a'] > 0) {
+                start = Math.max(start, count[current - 'a']);
+            }
+            count[current - 'a'] = end + 1;
+            result = Math.max(result, end - start + 1);
+        }
+        return result;
+        
+    }
+}
