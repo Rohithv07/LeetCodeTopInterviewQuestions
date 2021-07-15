@@ -53,3 +53,26 @@ class Solution{
         return (int)(result % mod);
     }
 }
+
+
+// this is also accepted
+
+class Solution{
+    static int countBits(int n, long a[])
+    {
+        // code here
+        if (a == null || n == 0)
+            return 0;
+        int mod = (int) 1e9 + 7;
+        long result = 0l;
+        for (int i=0; i<32; i++) {
+            long count = 0l;
+            for (int j=0; j<n; j++) {
+                if ((a[j] & (1 << i)) >= 1)
+                    count += 1;
+            }
+            result = (result + (count * (n - count) * 2)) % mod;
+        }
+        return (int)(result % mod);
+    }
+}
