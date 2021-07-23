@@ -51,3 +51,40 @@ class Knapsack
          return dp[n][W];
     } 
 }
+
+
+
+// recursion
+
+
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int w, int wt[], int val[], int n) 
+    { 
+         // your code here 
+         int [][] dp = new int [w + 1][n + 1];
+         for (int i=0; i<=w; i++) {
+             for (int j=0; j<=n; j++) {
+                 dp[i][j] = -1;
+             }
+         }
+         return findProfitUsingRecursion(w, wt, val, n, dp);
+    } 
+    
+    static int findProfitUsingRecursion(int w, int [] wt, int [] val, int n, int [][] dp) {
+        if (n == 0 || w == 0)
+            return 0;
+        if (dp[w][n] != -1) {
+            return dp[w][n];
+        }
+        if (wt[n-1] > w) {
+            return dp[w][n] = findProfitUsingRecursion(w, wt, val, n-1, dp);
+        }
+        return dp[w][n] = Math.max(val[n - 1] + findProfitUsingRecursion(w - wt[n - 1], wt, val, n-1, dp),
+        findProfitUsingRecursion(w, wt, val, n-1, dp));
+    }
+}
+
+
+
