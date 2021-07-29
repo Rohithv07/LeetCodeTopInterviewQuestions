@@ -73,6 +73,9 @@ public class RollTheDice {
 			if (target - i >= 0) {
 				result = (result + memoisation(d - 1, f, target - i, dp, mod)) % mod;
 			}
+			else {
+				break;
+			}
 		}
 		return dp[d][target] = result;
 	}
