@@ -63,6 +63,51 @@ class Solution
     }
 }
 
+class Solution
+{
+    static int majorityElement(int a[], int size)
+    {
+        // your code here
+        // O(n) space and O(1) time
+        if (a == null || size == 0)
+            return -1;
+        Map<Integer, Integer> freq = new HashMap<>();
+        int limit = size / 2;
+        for (int number : a) {
+            freq.put(number, freq.getOrDefault(number, 0) + 1);
+        }
+        for (int key : freq.keySet()) {
+            int value = freq.get(key);
+            if (value > limit)
+                return key;
+        }
+        return -1;
+        
+        // O(1) space using moores voting algorithm
+        int max = a[0];
+        int count = 1;
+        for (int i=1; i<size; i++) {
+            if (max == a[i]) {
+                count += 1;
+            }
+            else {
+                count -= 1;
+            }
+            if (count == 0) {
+                max = a[i];
+                count += 1;
+            }
+        }
+        count = 0;
+        for (int number : a) {
+            if (number == max) {
+                count ++;
+            }
+        }
+        return count > size / 2 ? max : -1;
+    }
+}
+
 
 
 
