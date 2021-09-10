@@ -10,7 +10,7 @@ public class StringSubstringOfAnother {
 		char [] s1 = ss1.toCharArray();
 		char [] s2 = ss2.toCharArray();
 		while(i<n1 && j<n2){
-			boolean changed=false;
+			boolean changed=false; // to check after encountering a * and we found the next identical one
 			while(s2[j]=='*' && i<n1 && j+1<n2 && s1[i]!=s2[j+1]){
 				i++;
 				changed = true;
