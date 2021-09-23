@@ -7,7 +7,7 @@ public class MergeSort {
 	public static void mergeSort(int [] nums, int left, int right) {
 		if (left < right) {
 			int middle = left + (right - left) / 2;
-			mergeSort(nums, 0, middle);
+			mergeSort(nums, left, middle);
 			mergeSort(nums, middle+1, right);
 			merge(nums, left, right, middle);
 		}
