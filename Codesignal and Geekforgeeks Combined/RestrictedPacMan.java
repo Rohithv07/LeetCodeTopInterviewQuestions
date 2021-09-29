@@ -63,3 +63,14 @@ class Solution{
         return result;
     }
 }
+
+
+// O(1) approach
+
+class Solution{
+    static int candies(int m, int n)
+    {
+        // Your code goes here 
+        return ((m - 1) * (n - 1) / 2);
+    }
+}
