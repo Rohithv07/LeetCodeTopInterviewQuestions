@@ -35,53 +35,59 @@ Constraints:
 
 
 
+//User function Template for Java
+
+
 class Solution
 {
     //Function to find the vertical order traversal of Binary Tree.
     static ArrayList <Integer> verticalOrder(Node root)
     {
         // add your code here
-        if (root == null) {
+        if (root == null)
             return new ArrayList<>();
-        }
+        // let roots position be at 0
+        // so to the left most it goes like -1, -2, -3 .....
+        // so to the right most it goes like 1, 2, 3, .....
+        // so we need those nodes at the respective distance from the very minimum to the very maximum
+        // make use of hashmap to store the distance and the respective nodes containing at that distance
+        // after proper storing store everything from the very minimum to the very maximum in an array lsut
+        // the traversal we need to use is level order
         Map<Integer, ArrayList<Integer>> map = new HashMap<>();
-        int min = 0;
-        int max = 0;
         ArrayList<Integer> result = new ArrayList<>();
+        int veryMinimum = 0;
+        int veryMaximum = 0;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(new TreeNode(root, 0));
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i=0; i<size; i++) {
-                TreeNode node = queue.poll();
-                int d = node.d;
-                if (d < min) {
-                    min = d;
+                TreeNode currentNode = queue.poll();
+                Node current = currentNode.node;
+                int distance = currentNode.distance;
+                if (distance < veryMinimum) {
+                    veryMinimum = distance;
                 }
-                if (d > max) {
-                    max = d;
+                if (distance > veryMaximum) {
+                    veryMaximum = distance;
                 }
-                Node n = node.node;
-                if (map.containsKey(d)) {
-                    map.get(d).add(n.data);
+                if (map.containsKey(distance)) {
+                    map.get(distance).add(current.data);
                 }
                 else {
-                    ArrayList<Integer> list = new ArrayList<>();
-                    list.add(n.data);
-                    map.put(d, list);
+                    map.put(distance, new ArrayList<>());
+                    map.get(distance).add(current.data);
                 }
-                if (n.left != null) {
-                    queue.offer(new TreeNode(n.left, d - 1));
+                if (current.left != null) {
+                    queue.offer(new TreeNode(current.left, distance - 1));
                 }
-                if (n.right != null) {
-                    queue.offer(new TreeNode(n.right, d + 1));
+                if (current.right != null) {
+                    queue.offer(new TreeNode(current.right, distance + 1));
                 }
             }
         }
-        for (int i=min; i<=max; i++) {
-            if (map.containsKey(i)) {
-                result.addAll(map.get(i));
-            }
+        for (int i=veryMinimum; i<=veryMaximum; i++) {
+            result.addAll(map.get(i));
         }
         return result;
     }
@@ -89,9 +95,9 @@ class Solution
 
 class TreeNode {
     Node node;
-    int d;
-    TreeNode (Node node, int d) {
+    int distance;
+    TreeNode(Node node, int distance) {
         this.node = node;
-        this.d = d;
+        this.distance = distance;
     }
 }
