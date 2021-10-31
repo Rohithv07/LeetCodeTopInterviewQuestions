@@ -41,6 +41,38 @@ class Solution {
     }
 }
 
+// simple solution using binary search - another direct method
+
+//User function Template for Java
+
+class Solution {
+    public int removeStudents(int[] h, int n) {
+        // code here
+        if (h == null || n <= 1) {
+            return 0;
+        } 
+        int [] dp = new int [n];
+        int maxLength = 0;
+        for (int number : h) {
+            int left = 0;
+            int right = maxLength;
+            while (left != right) {
+                int middle = left + (right - left) / 2;
+                if (dp[middle] < number) {
+                    left = middle + 1;
+                } 
+                else {
+                    right = middle;
+                }
+            }
+            dp[left] = number;
+            if (left == maxLength) {
+                maxLength++;
+            }
+        }
+        return n - maxLength;
+    }
+}
 
 
 
