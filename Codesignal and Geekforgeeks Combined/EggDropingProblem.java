@@ -55,3 +55,25 @@ class EggDrop
 	    return dp[n][k];
 	}
 }
+
+
+// optimised
+
+class Solution 
+{
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    static int eggDrop(int n, int k) 
+	{
+	    // Your code here
+	    int [][] dp = new int [n + 1][k + 1];
+	    int moves = 0;
+	    while (dp[n][moves] < k) {
+	        moves++;
+	        for (int egg=1; egg<=n; egg++) {
+	            dp[egg][moves] = dp[egg - 1][moves - 1] + dp[egg][moves - 1] + 1;
+	        }
+	    }
+	    return moves;
+	}
+}
