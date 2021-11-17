@@ -76,3 +76,44 @@ class Solution
 	}
 }
 
+
+
+
+
+// same logic and same approach using lamda
+
+class Solution 
+{ 
+    public ArrayList<Integer> Kclosest(int arr[], int n, int x, int k) 
+    { 
+        // Your code goes here 
+        if (arr == null || n == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> result = new ArrayList<>();
+        PriorityQueue<Pair> maxHeap = new PriorityQueue<>((p1, p2) -> 
+        p1.difference == p2.difference ? p2.number - p1.number : p2.difference - p1.difference);
+        for (int number : arr) {
+            int currentDiff = Math.abs(number - x);
+            maxHeap.offer(new Pair(number, currentDiff));
+            if (maxHeap.size() > k) {
+                maxHeap.poll();
+            }
+        }
+        while (!maxHeap.isEmpty()) {
+            result.add(maxHeap.poll().number);
+        }
+        Collections.sort(result);
+        return result;
+    }
+}
+
+class Pair {
+    int number;
+    int difference;
+    public Pair(int number, int difference) {
+        this.number = number;
+        this.difference = difference;
+    }
+}
+
