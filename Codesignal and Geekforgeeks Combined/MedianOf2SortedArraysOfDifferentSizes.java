@@ -75,3 +75,41 @@ class GFG
         
     }
 }
+
+
+
+// explained in youtuve strivers video
+
+class GFG 
+{ 
+    static double medianOfArrays(int n, int m, int a[], int b[]) 
+    {
+        // Your Code Here
+        if (m < n) {
+            return medianOfArrays(m, n, b, a);
+        }
+        int left = 0;
+        int right = n;
+        while (left <= right) {
+            int cut1 = left + (right - left) / 2;
+            int cut2 = ((m + n + 1) / 2) - cut1;
+            int leftPart1 = cut1 == 0 ? Integer.MIN_VALUE : a[cut1 - 1];
+            int leftPart2 = cut2 == 0 ? Integer.MIN_VALUE : b[cut2 - 1];
+            int rightPart1 = cut1 == n ? Integer.MAX_VALUE : a[cut1];
+            int rightPart2 = cut2 == m ? Integer.MAX_VALUE : b[cut2];
+            if (leftPart1 <= rightPart2 && leftPart2 <= rightPart1) {
+                if ((m + n) % 2 == 0) {
+                    return (Math.max(leftPart1, leftPart2) + Math.min(rightPart1, rightPart2)) / 2.0;
+                }
+                return Math.max(leftPart1, leftPart2);
+            }
+            if (leftPart1 > rightPart2) {
+                right = cut1 - 1;
+            }
+            else {
+                left = cut1 + 1;
+            }
+        }
+        return 0.0;
+    }
+}
