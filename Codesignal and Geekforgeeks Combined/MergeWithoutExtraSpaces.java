@@ -38,6 +38,66 @@ Constraints:
 1 <= n, m <= 5*104
 0 <= arr1i, arr2i <= 107
 
+// most direct approach with extra space
+
+class Solution
+{
+    //Function to merge the arrays.
+    public static void merge(long arr1[], long arr2[], int n, int m) 
+    {
+        // code here 
+        if (arr1 == null || n == 0 || arr2 == null || m == 0) {
+            return;
+        }
+        long [] storing = new long [n + m];
+        int index = 0;
+        for (long number : arr1) {
+            storing[index++] = number;
+        }
+        for (long number : arr2) {
+            storing[index++] = number;
+        }
+        Arrays.sort(storing);
+        index = 0;
+        for (int i=0; i<n; i++) {
+            arr1[i] = storing[index++];
+        }
+        for (int j=0; j<m; j++) {
+            arr2[j] = storing[index++];
+        }
+    }
+}
+
+
+// another approach without extra space but TC O(N * M). Might be TLE
+
+class Solution
+{
+    //Function to merge the arrays.
+    public static void merge(long arr1[], long arr2[], int n, int m) 
+    {
+        // code here 
+        if (arr1 == null || n == 0 || arr2 == null || m == 0) {
+            return;
+        }
+        for (int i=0; i<n; i++) {
+            if (arr1[i] > arr2[0]) {
+                long temp = arr1[i];
+                arr1[i] = arr2[0];
+                arr2[0] = temp;
+            }
+            // now we need to do internal sorting on array 2
+            long firstElement = arr2[0];
+            int k = 0;
+            for (k=1; k<m && arr2[k] < firstElement; k++) {
+                arr2[k - 1] = arr2[k];
+            }
+            arr2[k - 1] = firstElement;
+        }
+    }
+}
+
+
 
 
 
