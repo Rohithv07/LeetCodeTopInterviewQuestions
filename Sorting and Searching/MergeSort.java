@@ -58,3 +58,66 @@ public class MergeSort {
 		}
 	}
 }
+
+
+
+
+// another way of doing mergsort along with counting inversion logic
+// follow this code and print the array to the sorted array
+
+class Solution
+{
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    //Function to count inversions in the array.
+    static long inversionCount(long arr[], long n)
+    {
+        // Your Code Here
+        if (n == 0 || arr == null) {
+            return 0;
+        }
+        long [] temp = new long [(int)n];
+        long count =  mergeSort(arr, temp, 0, n-1);
+        for (long number : arr) {
+                System.out.print(number + " ");
+            } // here the array will be sorted
+            return count; // this will give the inversion count;
+    }
+    
+    static long mergeSort(long [] arr, long [] temp, long left, long right) {
+        long inversionCount = 0;
+        if (left < right) {
+            long middle = left + (right - left) / 2;
+            inversionCount += mergeSort(arr, temp, left, middle);
+            inversionCount += mergeSort(arr, temp, middle + 1, right);
+            inversionCount += merge(arr, temp, left, middle + 1, right);
+        }
+        return inversionCount;
+    }
+    
+    static long merge(long [] arr, long [] temp, long left, long middle, long right) {
+        long count = 0;
+        long i = left;
+        long j = middle;
+        long k = left;
+        while (i < middle && j <= right) {
+            if (arr[(int)i] <= arr[(int)j]) {
+                temp[(int)k++] = arr[(int)i++];
+            }
+            else {
+                temp[(int)k++] = arr[(int)j++];
+                count += (middle - i);
+            }
+        }
+        while (i < middle) {
+            temp[(int)k++] = arr[(int)i++];
+        }
+        while (j <= right) {
+            temp[(int)k++] = arr[(int)j++];
+        }
+        for (long p=left; p<=right; p++) {
+            arr[(int)p] = temp[(int)p];
+        }
+        return count;
+    }
+}
