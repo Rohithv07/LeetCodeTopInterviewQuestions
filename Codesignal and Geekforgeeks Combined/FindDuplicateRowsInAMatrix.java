@@ -70,3 +70,51 @@ class Solution
         return result;
     }
 }
+
+
+// using trie approach
+
+
+//User function Template for Java
+
+class Solution
+{
+    public static ArrayList<Integer> repeatedRows(int matrix[][], int m, int n)
+    {
+        //code here
+        if (matrix == null || matrix.length == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> result = new ArrayList<>();
+        TrieNode root = new TrieNode();
+        findDuplicateElseInsert(result, root, matrix);
+        return result;
+    }
+    
+    public static void findDuplicateElseInsert(ArrayList<Integer> result, TrieNode root, int [][] matrix) {
+        for (int i=0; i<matrix.length; i++) {
+            TrieNode node = root;
+            for (int j=0; j<matrix[0].length; j++) {
+                int index = matrix[i][j];
+                if (node.child[index] == null) {
+                    node.child[index] = new TrieNode();
+                }
+                node = node.child[index];
+            }
+            if (node.isEnd) {
+                result.add(i);
+            }
+            node.isEnd = true;
+        }
+    }
+}
+
+class TrieNode {
+    boolean isEnd;
+    TrieNode [] child;
+    
+    public TrieNode() {
+        child = new TrieNode[2]; // for 0 and 1
+        isEnd = false; // indicate we reached end
+    }
+}
