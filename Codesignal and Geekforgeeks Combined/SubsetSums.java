@@ -30,8 +30,32 @@ Constraints:
 1 <= N <= 15
 0 <= arr[i] <= 10000
 
+// approach added
+//User function Template for Java//User function Template for Java
+class Solution{
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int n){
+        // code here
+        if (n == 0 || arr == null) {
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> result = new ArrayList<>();
+        backtrack(arr, result, 0, 0);
+        return result;
+    }
+    
+    void backtrack(ArrayList<Integer> arr, ArrayList<Integer> result, int currentSum, int position) {
+        if (position == arr.size()) {
+            result.add(currentSum);
+            return;
+        }        
+        backtrack(arr, result, currentSum + arr.get(position), position + 1);
+        backtrack(arr, result, currentSum, position + 1);
+    }
+}
 
 
+
+// another approach
 class Solution{
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int n){
         // code here
