@@ -53,3 +53,35 @@ class Solution {
         
     }
 }
+
+
+// optimised using binary search
+
+class Solution {
+    public long kthElement( int arr1[], int arr2[], int n, int m, int k) {
+        if (n > m) {
+            return kthElement(arr2, arr1, m, n, k);
+        } 
+        int low = Math.max(0, k-m);
+        int high = Math.min(k, n);
+        while (low <= high) {
+            int cut1 = low + (high - low) / 2;
+            int cut2 = k - cut1;
+            int leftPart1 = cut1 == 0 ? Integer.MIN_VALUE : arr1[cut1 - 1];
+            int leftPart2 = cut2 == 0 ? Integer.MIN_VALUE : arr2[cut2 - 1];
+            int rightPart1 = cut1 == n ? Integer.MAX_VALUE : arr1[cut1];
+            int rightPart2 = cut2 == m ? Integer.MAX_VALUE : arr2[cut2];
+            if (leftPart1 <= rightPart2 && leftPart2 <= rightPart1) {
+                return Math.max(leftPart1, leftPart2);
+            }
+            if (leftPart1 > rightPart2) {
+                high = cut1 - 1;
+            }
+            else {
+                low = cut1 + 1;
+            }
+        }
+        return -1;
+        
+    }
+}
