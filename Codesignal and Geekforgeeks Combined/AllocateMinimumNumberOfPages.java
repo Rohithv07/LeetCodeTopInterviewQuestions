@@ -47,53 +47,70 @@ Constraints:
 1 <= M <= 105
 
 
+
+// ref video : https://youtu.be/gYmWHvRHu-s
+
 class Solution 
 {
     //Function to find minimum number of pages.
     public static int findPages(int[]a,int n,int m)
     {
         //Your code here
-        if (a == null || n == 0 || m == 0 || m > n)
+        if (a == null || n == 0) {
             return -1;
-        int start = 0;
-        int end = 0;
-        // start will be the max from the array, end will be the total sum
-        // that is our search space
-        for (int i=0; i<n; i++) {
-            end += a[i];
-            start = Math.max(start, a[i]);
         }
-        return binarySearch(a, n, m, start, end);
+        int low = maximum(a);
+        int high = sum(a);
+        return binarySearch(a, n, m, low, high);
     }
     
-    public static int binarySearch(int [] a, int n, int m, int start, int end) {
+    public static int binarySearch(int [] a, int n, int m, int low, int high) {
         int result = -1;
-        while (start <= end) {
-            int middle = start + (end - start) / 2;
-            if (isValid(a, n, m, middle)) {
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            if (canWeAllocateForMStudents(a, m, middle)) {
                 result = middle;
-                end = middle - 1;
+                high = middle - 1;
             }
             else {
-                start = middle + 1;
+                low = middle + 1;
             }
         }
-        return result;
+        //System.out.println(low);
+        return result; // returning low will also be our answer
     }
     
-    public static boolean isValid(int [] a, int n, int m, int currentSum) {
-        int sum = a[0];
-        int student = 1;
-        for (int i=1; i<n; i++) {
-            sum += a[i];
-            if (sum > currentSum) {
-                sum = a[i];
-                student += 1;
+    public static boolean canWeAllocateForMStudents(int [] a, int m, int barrier) {
+        int studentsAllocated = 1;
+        int runningAllocation = 0;
+        for (int number : a) {
+            runningAllocation += number;
+            if (runningAllocation > barrier) {
+                runningAllocation = number;
+                studentsAllocated += 1;
             }
-            if (student > m) {
+            if (studentsAllocated > m) {
                 return false;
-            }
+            } 
         }
         return true;
+    }
+    
+    public static int maximum(int [] a) {
+        int min = Integer.MIN_VALUE;
+        for (int number : a) {
+            if (number > min) {
+                min = number;
+            }
+        }
+        return min;
+    }
+    
+    public static int sum(int [] a) {
+        int sum = 0;
+        for (int number : a) {
+            sum += number;
+        }
+        return sum;
     }
 }
