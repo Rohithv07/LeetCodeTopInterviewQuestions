@@ -89,3 +89,29 @@ class Solution
     	
     }
 }
+
+
+
+class Solution
+{ 
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(int m[][], int n)
+    {
+        // code here 
+        if (m == null || n == 0) {
+            return 0;
+        }
+        int assumptionOfCelebrity = 0;
+        for (int i=0; i<n; i++) {
+            if (m[assumptionOfCelebrity][i] == 1) {
+                assumptionOfCelebrity = i;
+            }
+        }
+        for (int i=0; i<n; i++) {
+            if (i != assumptionOfCelebrity && (m[assumptionOfCelebrity][i] == 1 || m[i][assumptionOfCelebrity] == 0)) {
+                return -1;
+            }
+        }
+        return assumptionOfCelebrity;
+    }
+}
