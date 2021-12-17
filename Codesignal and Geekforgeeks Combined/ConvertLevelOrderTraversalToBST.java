@@ -61,3 +61,54 @@ class GFG
         return node;
     }
 }
+
+
+// O(n) approach
+
+class GFG 
+{
+    //Function to construct the BST from its given level order traversal.
+    public Node constructBST(int[] arr)
+    {
+        //Write your code here 
+        if (arr == null) {
+            return null;
+        }
+        Node root = new Node(arr[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(new TreeNode(root));
+        int i = 1;
+        while (i < arr.length) {
+            TreeNode current = queue.poll();
+            if (i < arr.length && arr[i] < current.node.data && arr[i] > current.min) {
+                current.node.left = new Node(arr[i]);
+                TreeNode newTreeNode = new TreeNode(current.node.left);
+                newTreeNode.min = current.min;
+                newTreeNode.max = current.node.data;
+                queue.offer(newTreeNode);
+                i++;
+            }
+            if (i < arr.length && arr[i] > current.node.data && arr[i] < current.max) {
+                current.node.right = new Node(arr[i]);
+                TreeNode newTreeNode = new TreeNode(current.node.right);
+                newTreeNode.min = current.node.data;
+                newTreeNode.max = current.max;
+                queue.offer(newTreeNode);
+                i++;
+            }
+        }
+        return root;
+        
+    }
+}
+
+class TreeNode {
+    Node node;
+    int max;
+    int min;
+    public TreeNode(Node node) {
+        this.node = node;
+        this.max = Integer.MAX_VALUE;
+        this.min = Integer.MIN_VALUE;
+    }
+}
