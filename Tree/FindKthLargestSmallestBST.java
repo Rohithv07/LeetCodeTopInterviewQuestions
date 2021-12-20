@@ -21,8 +21,8 @@ class FindKthLargestSmallestBST {
 		if (root == null) {
 			return Integer.MIN_VALUE;
 		}
-		int [] level = new int [1]{0};
-		int [] result = new int [1]{Integer.MIN_VALUE};
+		int [] level = new int []{0};
+		int [] result = new int []{Integer.MIN_VALUE};
 		inorder(root, k, level, result);
 		return result[0];
 	}
@@ -49,9 +49,9 @@ class FindKthLargestSmallestBST {
 		if (root == null) {
 			return Integer.MAX_VALUE;
 		}
-		int [] level = new int [1]{0};
-		int [] result = new int [1]{Integer.MAX_VALUE};
-		int [] totalNodes = new int [1]{0};
+		int [] level = new int []{0};
+		int [] result = new int []{Integer.MAX_VALUE};
+		int [] totalNodes = new int []{0};
 		findTotalNode(root, totalNodes);
 		inorder(root, totalNodes[0] - k, level, result);
 	}
