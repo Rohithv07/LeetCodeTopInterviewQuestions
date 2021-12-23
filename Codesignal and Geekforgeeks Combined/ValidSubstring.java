@@ -53,3 +53,50 @@ class Solution {
         return maximumLength;
     }
 }
+
+
+
+// without using stack
+// use 2 variables left and right
+// left track the open brackets
+// right track the closed bracket
+// first track the number of open and closed
+// whenever we are getting into equal left and right, update the max
+// if anything gets more count, reset everything to 0
+// repeat the same process for right to left also
+
+
+int findMaxLen(string s) {
+        // code here
+        int left=0,right=0;
+        int length=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='('){
+                left++;
+            }else if(s[i]==')'){
+                right++;
+            }
+            if(left==right){
+                length=max(length,2*right);
+            }
+            if(right>left){
+                left=right=0;
+            }
+        }
+        left=right=0;
+        for(int i=s.size()-1;i>=0;i--){
+            if(s[i]=='('){
+                left++;
+            }else if(s[i]==')'){
+                right++;
+            }
+            if(left==right){
+                length=max(length,2*right);
+            }
+            if(left>right){
+                left=right=0;
+            }
+        }
+        return length;
+        
+    }
