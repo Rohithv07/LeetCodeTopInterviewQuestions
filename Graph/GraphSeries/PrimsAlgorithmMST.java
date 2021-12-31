@@ -89,6 +89,7 @@ public class PrimsAlgorithmMST {
 			Pair currentPair = minHeap.poll();
 			int currentNode = currentPair.node;
 			int currentWeight = currentPair.weight;
+			mst[currentNode] = true;
 			ArrayList<Pair> children = adj.get(currentNode);
 			for (Pair child : children) {
 				int childNode = child.node;
