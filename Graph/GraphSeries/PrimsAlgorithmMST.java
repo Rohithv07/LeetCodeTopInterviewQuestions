@@ -65,12 +65,30 @@ public class PrimsAlgorithmMST {
 		minHeap.offer(new Pair(0, key[0]));
 
 		// since in MST we have n nodes and n - 1 edes, we will be doing a loop from 0 to n - 1
-		for (int i=0; i<n-1; i++) {
+		// for (int i=0; i<n-1; i++) {
+		// 	Pair currentPair = minHeap.poll();
+		// 	int currentNode = currentPair.node;
+		// 	int currentWeight = currentPair.weight;
+		// 	mst[currentNode] = true;
+
+		// 	ArrayList<Pair> children = adj.get(currentNode);
+		// 	for (Pair child : children) {
+		// 		int childNode = child.node;
+		// 		int childWeight = child.weight;
+		// 		if (!mst[childNode] && key[childNode] > childWeight) {
+		// 			key[childNode] = childWeight;
+		// 			parent[childNode] = currentNode;
+		// 			minHeap.offer(new Pair(childNode, key[childNode]));
+		// 		}
+		// 	}
+		// }
+		// the above code is also correct but we can remove the for loop and do a while loop until pq is empty
+
+
+		while (!minHeap.isEmpty()) {
 			Pair currentPair = minHeap.poll();
 			int currentNode = currentPair.node;
 			int currentWeight = currentPair.weight;
-			mst[currentNode] = true;
-
 			ArrayList<Pair> children = adj.get(currentNode);
 			for (Pair child : children) {
 				int childNode = child.node;
@@ -82,6 +100,9 @@ public class PrimsAlgorithmMST {
 				}
 			}
 		}
+
+
+
 		// parent of the very first index will be -1.
 		for (int i=1; i<n; i++) {
 			System.out.println("Parent : " + parent[i] + " of node : " + i);
