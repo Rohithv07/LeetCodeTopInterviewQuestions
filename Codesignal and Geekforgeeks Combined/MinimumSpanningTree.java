@@ -82,3 +82,58 @@ class MyComparator implements Comparator<Pair> {
         return Integer.compare(p1.weight, p2.weight);
     }
 }
+
+
+
+
+
+// another way
+class Solution
+{
+    //Function to find sum of weights of edges of the Minimum Spanning Tree.
+    static int spanningTree(int v, ArrayList<ArrayList<ArrayList<Integer>>> adj) 
+    {
+        // Add your code here
+        if (v == 0 || adj == null || adj.size() == 0) {
+            return 0;
+        }
+        int [] key = new int [v];
+        boolean [] mst = new boolean [v];
+        int [] parent = new int [v];
+        Arrays.fill(key, Integer.MAX_VALUE);
+        Arrays.fill(parent, -1);
+        int mstTotalWeight = 0;
+        key[0] = 0;
+        PriorityQueue<Pair> minHeap = new PriorityQueue<>((p1, p2) -> Integer.compare(p1.weight, p2.weight));
+        minHeap.offer(new Pair(0, key[0]));
+        while (!minHeap.isEmpty()) {
+            Pair currentPair = minHeap.poll();
+            int currentNode = currentPair.node;
+            int currentWeight = currentPair.weight;
+            mst[currentNode] = true;
+            ArrayList<ArrayList<Integer>> children = adj.get(currentNode);
+            for (ArrayList<Integer> child : children) {
+                int childNode = child.get(0);
+                int childWeight = child.get(1);
+                if (!mst[childNode] && key[childNode] > childWeight) {
+                    key[childNode] = childWeight;
+                    parent[childNode] = currentNode;
+                    minHeap.offer(new Pair(childNode, key[childNode]));
+                }
+            }
+        }
+        for (int number : key) {
+            mstTotalWeight += number;
+        }
+        return mstTotalWeight;
+    }
+}
+
+class Pair {
+    int node;
+    int weight;
+    public Pair(int node, int weight) {
+        this.node = node;
+        this.weight = weight;
+    }
+}
