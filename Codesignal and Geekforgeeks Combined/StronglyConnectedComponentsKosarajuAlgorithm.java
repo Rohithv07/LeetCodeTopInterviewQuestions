@@ -40,72 +40,74 @@ Sum of E over all testcases will not exceed 25*106
 
 
 
-// dfs and fill the stack
-// reverse
-// dfs and pop the stack and count the scc
 class Solution
 {
     //Function to find number of strongly connected components in the graph.
-    public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj)
+    public int kosaraju(int v, ArrayList<ArrayList<Integer>> adj)
     {
         //code here
-        Stack<Integer> stack = new Stack<>();
-        int count = 0;
-        boolean [] visited = new boolean [V];
-        for (int i=0; i<V; i++) {
+        if (adj == null || adj.size() == 0 || v <= 0) {
+            return 0;
+        }
+        // we can apply Kosarajus SCC algorithm here
+        // we just need to do 3 steps
+        // 1. Find the topological ordering for the given graph
+        // 2. Find the transpose of the graph by just changing the direction
+        // 3. Now based on the topological ordering, do a dfs on the transpose graph
+        // by these steps we can find the strongly connected component, or we can take the count whatever we need
+        
+        boolean [] visited = new boolean[v];
+        Stack<Integer> trackOrder = new Stack<>();
+        int stronglyConnectedCount = 0;
+        for (int i=0; i<v; i++) {
             if (!visited[i]) {
-                dfsFillStack(adj, i, visited, stack);
+                normalDfs(i, visited, adj, trackOrder);
             }
         }
-        ArrayList<ArrayList<Integer>> reversed = new ArrayList<>();
-        Arrays.fill(visited, false);
-        for (int i=0; i<V; i++) {
-            reversed.add(i, new ArrayList<>());
+        ArrayList<ArrayList<Integer>> transpose = new ArrayList<>();
+        for (int i=0; i<v; i++) {
+            transpose.add(new ArrayList<>());
         }
-        reverse(adj, V, reversed);
-        while (!stack.isEmpty()) {
-            int current = stack.pop();
-            if (!visited[current]) {
-                dfsCountSCC(reversed, current, visited);
-                count++;
-            }
-        }
-        return count;
-    }
-    
-    public void reverse(ArrayList<ArrayList<Integer>> adj, int V, ArrayList<ArrayList<Integer>> reversed) {
-        for (int i=0; i<V; i++) {
+        for (int i=0; i<v; i++) {
+            visited[i] = false;
             ArrayList<Integer> children = adj.get(i);
             for (Integer child : children) {
-                reversed.get(child).add(i);
+                // change direction
+                transpose.get(child).add(i);
             }
         }
+        while (!trackOrder.isEmpty()) {
+            int node = trackOrder.pop();
+            if (!visited[node]) {
+                stronglyConnectedCount ++;
+                specialDfs(node, visited, transpose);
+                // here also we can make use for printing the scc, which can be added inside the dfs
+            }
+        }
+        return stronglyConnectedCount;
     }
     
-    public void dfsFillStack(ArrayList<ArrayList<Integer>> adj, int i, boolean [] visited, Stack<Integer> stack) {
-        visited[i] = true;
-        ArrayList<Integer> children = adj.get(i);
+    // this will help in finding the topo sort
+    public void normalDfs(int node, boolean [] visited, ArrayList<ArrayList<Integer>> adj, Stack<Integer> trackOrder) {
+        visited[node] = true;
+        ArrayList<Integer> children = adj.get(node);
         for (Integer child : children) {
             if (!visited[child]) {
-                dfsFillStack(adj, child, visited, stack);
+                normalDfs(child, visited, adj, trackOrder);
             }
         }
-        stack.push(i);
+        trackOrder.push(node);
     }
     
-    public void dfsCountSCC(ArrayList<ArrayList<Integer>> reversed, int i, boolean [] visited) {
-        visited[i] = true;
-        ArrayList<Integer> children = reversed.get(i);
+    // this will track the scc
+    public void specialDfs(int node, boolean [] visited, ArrayList<ArrayList<Integer>> transpose) {
+        visited[node] = true;
+        // we can just print the node which will give our scc nodes
+        ArrayList<Integer> children = transpose.get(node);
         for (Integer child : children) {
             if (!visited[child]) {
-                dfsCountSCC(reversed, child, visited);
+                specialDfs(child, visited, transpose);
             }
         }
     }
-
-    
-    
-    
-    
 }
-
