@@ -46,3 +46,21 @@ class Solution {
     }
     
 }
+
+
+
+class Solution {
+    public int bitwiseComplement(int n) {
+        if (n == 1) {
+            return 0;
+        }
+        if (n == 0) {
+            return 1;
+        }
+        int x = 1;
+        while (n > x) {
+            x = x << 1 | 1;
+        }
+        return x - n;
+    }
+}
