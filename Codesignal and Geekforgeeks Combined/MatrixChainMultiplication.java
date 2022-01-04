@@ -39,6 +39,7 @@ Constraints:
 1 ≤ arr[i] ≤ 500
 
 
+// https://youtu.be/prx1psByp7U
 class Solution{
     static int matrixMultiplication(int n, int arr[])
     {
