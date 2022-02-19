@@ -20,6 +20,7 @@ public class GCDArrays {
 				}
 			}
 			else {
+				// count of odd numbers in the given range, which is (𝑟−𝑙+1)−(𝑟/2−(𝑙−1)/2
 				if ((r - l + 1) - (r/2 - (l - 1) / 2) <= k) {
 							System.out.println("YES");
 						}
