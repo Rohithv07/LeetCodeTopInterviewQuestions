@@ -46,6 +46,7 @@ class Solution{
 }
 
 
+// using recursion
 class Solution{
     static int findHeight(int n, int arr[]){
         // code here
@@ -60,11 +61,11 @@ class Solution{
         return height[0];
     }
     
-    static void dfs(int [] arr, int element, int index, int [] height) {
+    static void dfs(int [] arr, int element, int currentHeight, int [] height) {
         if (element == -1) {
-            height[0] = Math.max(height[0], index + 1);
+            height[0] = Math.max(height[0], currentHeight + 1);
             return;
         }
-        dfs(arr, arr[element], index + 1, height);
+        dfs(arr, arr[element], currentHeight + 1, height);
     }
 }
