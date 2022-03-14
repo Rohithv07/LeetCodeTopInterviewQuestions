@@ -55,3 +55,39 @@ class Solution
         return min;
     }
 } 
+
+
+class Solution 
+{ 
+    int count(int n, int a[], int x) 
+    {   
+        // code here
+        if (n == 1 && a[0] <= x) {
+            return 1;
+        }
+        int totalAnd = a[0];
+        for (int i = 1; i < n; i++) {
+            totalAnd &= a[i];
+        }
+        if (totalAnd > x) {
+            return 0;
+        }
+        int mask = 0;
+        int result = n;
+        for (int i = 31; i >= 0; i--) {
+            if (((x >> i) & 1) == 1) {
+                mask ^= (1 << i);
+                continue;
+            }
+            int count = 0;
+            int tempMask = mask ^ (1 << i);
+            for (int num : a) {
+                if ((num & tempMask) == tempMask) {
+                    count++;
+                }
+            }
+            result = Math.min(result, n - count);
+        }
+        return result;
+    }
+} 
