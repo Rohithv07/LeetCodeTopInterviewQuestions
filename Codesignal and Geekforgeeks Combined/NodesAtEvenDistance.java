@@ -59,3 +59,44 @@ class Solution
         }
     }
 }
+
+
+
+// same approach
+
+class Solution
+{
+    int countOfNodes(ArrayList<ArrayList<Integer>> graph, int n) 
+    {
+        // Write your code here
+        boolean [] visited = new boolean [n + 1];
+        int [] distance = new int [n + 1];
+        dfs(graph, n, visited, distance, 1, 0);
+        int even = 0;
+        int odd = 0;
+        for (int i = 1; i <= n; i++) {
+            if (distance[i] % 2 == 0) {
+                even++;
+            }
+            else {
+                odd++;
+            }
+        }
+        return (even * (even - 1) / 2) + (odd * (odd - 1) / 2);
+    }
+    
+    void dfs(ArrayList<ArrayList<Integer>> graph, int n, boolean [] visited, int [] distance, int node, int value) {
+        visited[node] = true;
+        distance[node] = value;
+        ArrayList<Integer> children = graph.get(node);
+        if (children != null) {
+            for (Integer child : children) {
+                if (child != null) {
+                    if (!visited[child]) {
+                        dfs(graph, n, visited, distance, child, value + 1);
+                    }
+                }
+            }
+        }
+    }
+}
