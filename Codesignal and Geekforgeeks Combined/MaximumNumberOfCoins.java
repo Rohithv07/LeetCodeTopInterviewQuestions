@@ -24,3 +24,32 @@ class Solution{
 		return dp[1][n];
 	}
 }
+
+
+// matrix chain multiplication variant
+
+// https://youtu.be/AWyGB-P90sg
+
+//User function Template for Java
+
+class Solution{
+    int maxCoins(ArrayList<Integer> arr, int n) {
+		//Write your code here
+		int [] extraSpaceIncluded = new int [n + 2];
+		extraSpaceIncluded[0] = extraSpaceIncluded[n + 1] = 1;
+		for (int i = 1; i <= n; i++) {
+		    extraSpaceIncluded[i] = arr.get(i - 1);
+		}
+		int [][] dp = new int [n + 2][n + 2];
+		for (int i = n; i > 0; i--) {
+		    for (int j = i; j <= n; j++) {
+		        for (int k = i; k <= j; k++) {
+		            dp[i][j] = Math.max(dp[i][j], dp[i][k - 1] + dp[k + 1][j] + 
+		            extraSpaceIncluded[k] * extraSpaceIncluded[i - 1] * 
+		            extraSpaceIncluded[j + 1]);
+		        }
+		    }
+		}
+		return dp[1][n];
+	}
+}
