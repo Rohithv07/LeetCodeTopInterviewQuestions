@@ -46,45 +46,56 @@ mat[R][C] = '.'
 
 class Solution{
 
-	public static int numberOfCells(int n, int m, int r, int c, int up, int down, char mat[][])
+	public static int numberOfCells(int n, int m, int r, int c, int u, int d, char mat[][])
 	{
 		// code here
-		
-		Queue<Fourble> queue = new LinkedList<>();
-		queue.offer(new Fourble(r, c, 0, 0));
-		mat[r][c] = '1';
-		int total = 0;
-		while (!queue.isEmpty()) {
-		    Fourble current = queue.poll();
-		    int x = current.row;
-		    int y = current.col;
-		    int u = current.up;
-		    int d = current.down;
-		    if (y > 0 && mat[x][y - 1] == '.') {
-		        queue.offer(new Fourble(x, y - 1, u, d));
-		        mat[x][y - 1] = '1';
-		    }
-		    if (y < m - 1 && mat[x][y + 1] == '.') {
-		        queue.offer(new Fourble(x, y + 1, u, d));
-		        mat[x][y + 1] = '1';
-		    }
-		    if (x > 0 && mat[x - 1][y] == '.' && u != up) {
-		        queue.offer(new Fourble(x - 1, y, u + 1, d));
-		        mat[x - 1][y] = '1';
-		    }
-		    if (x < n - 1 && mat[x + 1][y] == '.' && d != down) {
-		        queue.offer(new Fourble(x + 1, y, u, d + 1));
-		        mat[x + 1][y] = '1';
-		    }
+		// base condition
+		if (mat[r][c] == '#') {
+		    return 0;
 		}
+		bfs(n, m, r, c, u, d, mat);
+		int countOfPossibleCells = 0;
 		for (int i = 0; i < n; i++) {
 		    for (int j = 0; j < m; j++) {
 		        if (mat[i][j] == '1') {
-		            total++;
+		            countOfPossibleCells++;
 		        }
 		    }
 		}
-		return total;
+		return countOfPossibleCells;
+	}
+	
+	public static void bfs(int n, int m, int startingRow, int startingCol, int u, int d, char [][] mat) {
+	    Queue<Fourble> queue = new LinkedList<>();
+	    queue.offer(new Fourble(startingRow, startingCol, 0, 0));
+	    mat[startingRow][startingCol] = '1';
+	    while (!queue.isEmpty()) {
+	        Fourble current = queue.poll();
+	        int row = current.row;
+	        int col = current.col;
+	        int upperCount = current.upperCount;
+	        int lowerCount = current.lowerCount;
+	        // left
+	        if (col > 0 && mat[row][col - 1] == '.') {
+	            mat[row][col - 1] = '1';
+	            queue.offer(new Fourble(row, col - 1, upperCount, lowerCount));
+	        }
+	        // right 
+	        if (col < m - 1 && mat[row][col + 1] == '.') {
+	            mat[row][col + 1] = '1';
+	            queue.offer(new Fourble(row, col + 1, upperCount, lowerCount));
+	        }
+	        // up
+	        if (row > 0 && upperCount != u && mat[row - 1][col] == '.') {
+	            mat[row - 1][col] = '1';
+	            queue.offer(new Fourble(row - 1, col, upperCount + 1, lowerCount));
+	        }
+	        // down
+	        if (row < n - 1 && lowerCount != d && mat[row + 1][col] == '.') {
+	            mat[row + 1][col] = '1';
+	            queue.offer(new Fourble(row + 1, col, upperCount, lowerCount + 1));
+	        }
+	    }
 	}
 
 }
@@ -92,13 +103,13 @@ class Solution{
 class Fourble {
     int row;
     int col;
-    int up;
-    int down;
+    int upperCount;
+    int lowerCount;
     
-    public Fourble(int row, int col, int up, int down) {
+    public Fourble(int row, int col, int upperCount, int lowerCount) {
         this.row = row;
         this.col = col;
-        this.up = up;
-        this.down = down;
+        this.upperCount = upperCount;
+        this.lowerCount = lowerCount;
     }
 }
