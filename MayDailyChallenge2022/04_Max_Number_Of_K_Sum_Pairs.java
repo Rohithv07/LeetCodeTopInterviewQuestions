@@ -29,6 +29,7 @@ Constraints:
 1 <= nums[i] <= 109
 1 <= k <= 109
 
+// nlogn
 class Solution {
     public int maxOperations(int[] nums, int k) {
         int length = nums.length;
@@ -54,6 +55,39 @@ class Solution {
                 left++;
                 right--;
                 operation++;
+            }
+        }
+        return operation;
+    }
+}
+
+
+// n
+
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        int length = nums.length;
+        if (length == 1) {
+            if (nums[0] == k) {
+                return 1;
+            }
+            return 0;
+        }
+        int operation = 0;
+        Map<Integer, Integer> tracker = new HashMap<>();
+        for (int i = 0; i < length; i++) {
+            int currentNum = nums[i];
+            int diff = k - currentNum;
+            if (diff < 0) {
+                // we have only positive numbers
+                continue;
+            }
+            if (tracker.containsKey(currentNum) && tracker.get(currentNum) > 0) {
+                operation++;
+                tracker.put(currentNum, tracker.get(currentNum) - 1);
+            }
+            else {
+                tracker.put(diff, tracker.getOrDefault(diff, 0) + 1);
             }
         }
         return operation;
