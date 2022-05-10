@@ -69,3 +69,48 @@ class Solution
 }
 
 
+// samw logic, different way
+
+
+class Solution
+{
+    //Function to return the largest possible number of n digits
+    //with sum equal to given sum.
+    static String largestNumber(int n, int sum)
+    {
+        // add your code here
+        if (9 * n < sum) {
+            return "-1";
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sum - 9 > 0) {
+            sb.append(9);
+            sum -= 9;
+        }
+        if (sum == 0) {
+            int currentLength = sb.length();
+            if (currentLength == n) {
+                return sb.toString();
+            }
+            for (int i = currentLength; i < n; i++) {
+                sb.append(0);
+            }
+            return sb.toString();
+        }
+        else {
+            sb.append(sum);
+            int currentLength = sb.length();
+            if (currentLength == n) {
+                return sb.toString();
+            }
+            for (int i = currentLength; i < n; i++) {
+                sb.append(0);
+            }
+            return sb.toString();
+        }
+    }
+}
+
+
+
+
