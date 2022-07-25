@@ -14,12 +14,11 @@ public class CountSubsequenceSumK {
 		}
 		int k = sc.nextInt();
 		int [] count = new int [1];
-		List<Integer> store = new ArrayList<>();
-		getSubsequenceCount(nums, 0, 0, count, k, store);
+		getSubsequenceCount(nums, 0, 0, count, k);
 		System.out.println(count[0]);
 	}
 
-	private static void getSubsequenceCount(int [] nums, int index, int sum, int [] count, int k, List<Integer> store) {
+	private static void getSubsequenceCount(int [] nums, int index, int sum, int [] count, int k) {
 		if (index >= nums.length) {
 			if (sum == k) {
 				count[0] += 1;
@@ -27,13 +26,11 @@ public class CountSubsequenceSumK {
 			return;
 		}
 		// picl
-		store.add(nums[index]);
 		sum += nums[index];
-		getSubsequenceCount(nums, index + 1, sum, count, k, store);
+		getSubsequenceCount(nums, index + 1, sum, count, k);
 
 		// not pick
-		store.remove(store.size() - 1);
 		sum -= nums[index];
-		getSubsequenceCount(nums, index + 1, sum, count, k, store);
+		getSubsequenceCount(nums, index + 1, sum, count, k);
 	}
 }
