@@ -5,3 +5,8 @@
    2. Do all possible operations on that index according to the problem statement.
    3. To count all possible ways - sum of all stuff.
         To find minimum/maximum - Take Minimum/maximum of all stuff.
+
+
+## Thumb rule
+
+* If there is index - 1, index - 2 kind of stuff, there is always space optimisation.
