@@ -12,6 +12,17 @@ import java.util.Scanner;
  *
  */
 public class Shooting {
+	
+	static class Pair {
+		int value;
+		int index;
+
+		public Pair(int value, int index) {
+			this.value = value;
+			this.index = index;
+		}
+	}
+
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -36,15 +47,5 @@ public class Shooting {
 			System.out.print(num + " ");
 		}
 		System.out.println();
-	}
-}
-
-class Pair {
-	int value;
-	int index;
-
-	public Pair(int value, int index) {
-		this.value = value;
-		this.index = index;
 	}
 }
