@@ -29,8 +29,7 @@ equations[i][3] is a lowercase letter.
 
 class Solution {
     public boolean equationsPossible(String[] equations) {
-        int length = 26;
-        UnionFind uf = new UnionFind(length);
+        UnionFind uf = new UnionFind(26);
         for (String s : equations) {
             if (s.charAt(1) == '=') {
                 uf.union(s.charAt(0), s.charAt(3));
@@ -38,34 +37,32 @@ class Solution {
         }
         for (String s : equations) {
             if (s.charAt(1) == '!') {
-                if (uf.find(s.charAt(0) - 'a') == uf.find(s.charAt(3) - 'a')) {
+                if (uf.find(s.charAt(0) - 'a') == uf.find(s.charAt(3) - 'a'))
                     return false;
-                }
             }
         }
         return true;
     }
 }
 
+
 class UnionFind {
     int size;
     int component;
     int [] parent;
     int [] rank;
-    
     public UnionFind(int n) {
         if (n <= 0) {
-            throw new IllegalArgumentException("N cannot be negative or zero");
+            throw new IllegalArgumentException("Error");
         }
         size = n;
         component = n;
         parent = new int [n];
         rank = new int [n];
-        for (int i = 0; i < n; i++) {
-            rank[i] = i;
+        for (int i=0; i<n; i++) {
+            parent[i] = i;
         }
     }
-    
     public int find(int p) {
         while (p != parent[p]) {
             parent[p] = parent[parent[p]];
@@ -73,22 +70,20 @@ class UnionFind {
         }
         return p;
     }
-    
-    public void union(char ch1, char ch2) {
-        int root1 = find(ch1 - 'a');
-        int root2 = find(ch2 - 'a');
-        if (root1 == root2) {
+    public void union(char p, char q) {
+        int rootP = find(p - 'a');
+        int rootQ = find(q - 'a');
+        if (rootQ == rootP)
             return;
-        }
-        if (rank[root2 - 'a'] > rank[root1 - 'a']) {
-            parent[root1 - 'a'] = root2;
+        if (rank[rootQ] > rank[rootP]) {
+            parent[rootP] = rootQ;
         }
         else {
-            parent[root2] = root1;
-            if (parent[root1 - 'a'] == parent[root2 - 'a']) {
-                rank[root1 - 'a']++;
+            parent[rootQ] = rootP;
+            if (rank[rootP] == rank[rootQ]) {
+                rank[rootP] += 1;
             }
         }
-        component--;
+        component -= 1;
     }
 }
