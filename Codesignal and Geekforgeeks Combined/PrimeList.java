@@ -44,3 +44,145 @@ class Solution
         return result.next;
     }
 }
+
+
+
+class Solution
+
+{
+
+    boolean checkPrime(int n)
+
+    {
+
+        if(n<=1)
+
+            return false;           
+
+        else if(n == 2)
+
+            return true;
+
+        else if(n%2==0)
+
+            return false;
+
+ 
+
+        for (int i = 3; i <= Math.sqrt(n); i += 2) 
+
+        {
+
+            if (n % i == 0)
+
+                return false;
+
+        }
+
+        
+
+        return true;
+
+    }
+
+    
+
+    Node primeList(Node head){
+
+        //code here
+
+        
+
+        int step_a = 0;
+
+        int step_b = 0;
+
+        
+
+        Node temp = head;
+
+        
+
+        while(temp!=null)
+
+        {
+
+            if(!checkPrime(temp.val))
+
+            {
+
+                int a = 0;
+
+                int b = 0;
+
+                int c = 1;
+
+                while(!checkPrime(temp.val))
+
+                {
+
+                    a = temp.val - c;
+
+                    b = temp.val + c;
+
+                    
+
+                    boolean ch_a = checkPrime(a);
+
+                    boolean ch_b = checkPrime(b);
+
+                    
+
+                    if(ch_a && ch_b)
+
+                    {
+
+                        if(a<b)
+
+                            temp.val = a;
+
+                        else
+
+                            temp.val = b;
+
+                    }
+
+                    else if(ch_a)
+
+                    {
+
+                        temp.val = a;
+
+                    }
+
+                    else if(ch_b)
+
+                    {
+
+                        temp.val = b;
+
+                    }
+
+                    else{
+
+                        c++;
+
+                    }
+
+                }
+
+            }
+
+            
+
+            temp = temp.next;
+
+        }
+
+        
+
+     return head;   
+
+    }
+
+}
