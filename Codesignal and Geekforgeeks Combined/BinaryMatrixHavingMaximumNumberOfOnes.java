@@ -62,3 +62,30 @@ class Solution {
         return new int [] {maxIndex, maxNumberOfOnes};
     }
 }
+
+
+
+
+class Solution {
+    public int[] findMaxRow(int mat[][], int n) {
+        // code here
+        int [] result = new int [2];
+        int rowNum = 0;
+        int maxCount = 0;
+        int i = 0;
+        int j = n - 1;
+        while (i < n && j >= 0) {
+            if (mat[i][j] == 1) {
+                rowNum = i;
+                maxCount++;
+                j--;
+            }
+            else {
+                i++;
+            }
+        }
+        result[0] = rowNum;
+        result[1] = maxCount;
+        return result;
+    }
+}
