@@ -52,12 +52,13 @@ public class ILove1543 {
 				}
 				if (currentRow % 2 == 0) {
 					int rightCol = currentCol + 1;
-					int downRow = current
+					int current = 0;
+					int downRow = current;
 					// down and right
 					if (currentVal == 1) {
 						if (currentRow + 1 >= 0 && currentCol + 1 >= 0 && currentRow + 1 < row && currentCol + 1 < col 
 								&& (rotated[currentRow][currentCol + 1] == 5 || rotated[currentRow + 1][currentCol] == 5)){
-							queue.offer(new int [] {})
+							queue.offer(new int [] {});
 							
 						}
 					}
