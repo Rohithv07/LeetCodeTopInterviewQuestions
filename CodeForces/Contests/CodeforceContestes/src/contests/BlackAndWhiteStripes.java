@@ -20,6 +20,7 @@ public class BlackAndWhiteStripes {
 			String s = sc.next();
 			System.out.println(findMinCellsColored(s, n, k));
 		}
+		sc.close();
 	}
 
 	private static int findMinCellsColored(String s, int n, int k) {
