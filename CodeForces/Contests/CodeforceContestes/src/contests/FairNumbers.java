@@ -24,13 +24,12 @@ public class FairNumbers {
 		if (num == 1) {
 			return num;
 		}
-		while (num > 0) {
-			if (isDivisible(num)) {
-				return num;
-			}
-			num++;
-		}
-		return 0;
+  while (true) {
+   if (isDivisible(num)) {
+    return num;
+   }
+   num++;
+  }
 	}
 
 	private static boolean isDivisible(long num) {
