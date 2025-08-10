@@ -15,8 +15,9 @@ public class ArborisContractio {
 		while (test-- > 0) {
 			int n = sc.nextInt();
 			List<List<Integer>> graph = new ArrayList<>();
-			for (int i = 0; i <= n; i++)
+			for (int i = 0; i <= n; i++) {
 				graph.add(new ArrayList<>());
+			}
 
 			for (int i = 0; i < n - 1; i++) {
 				int u = sc.nextInt();
