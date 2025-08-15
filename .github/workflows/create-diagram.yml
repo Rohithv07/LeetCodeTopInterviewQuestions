@@ -24,12 +24,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install repo-visualizer CLI
-        run: npm install -g repo-visualizer-cli
+      - name: Install repo-visualizer
+        run: npm install -g repo-visualizer
 
       - name: Generate diagram
         run: |
-          repo-visualizer-cli \
+          repo-visualizer \
             --repo-path . \
             --output diagram.svg \
             --exclude "ignore,.github"
