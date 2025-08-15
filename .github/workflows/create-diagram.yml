@@ -1,16 +1,38 @@
 name: Create diagram
+
 on:
   workflow_dispatch: {}
   push:
     branches:
       - master
+
 jobs:
   get_data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update diagram
         uses: githubocto/repo-visualizer@main
         with:
           excluded_paths: "ignore,.github"
+
+      - name: Commit diagram changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-diagram
+          git add diagram.svg
+          git commit -m "Repo visualizer: update diagram" || echo "No changes to commit"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: update-diagram
+          title: "Repo visualizer: update diagram"
+          body: "Automated update of the repo diagram"
+          base: master
