@@ -6,6 +6,10 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   get_data:
     runs-on: ubuntu-latest
@@ -31,17 +35,19 @@ jobs:
             --exclude "ignore,.github"
 
       - name: Commit diagram changes
+        id: commit_changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B update-diagram
+          git checkout -B update-diagram-${{ github.run_id }}
           git add diagram.svg
-          git commit -m "Repo visualizer: update diagram" || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m "Repo visualizer: update diagram"
 
       - name: Create Pull Request
+        if: success() && steps.commit_changes.outcome == 'success'
         uses: peter-evans/create-pull-request@v6
         with:
-          branch: update-diagram
+          branch: update-diagram-${{ github.run_id }}
           title: "Repo visualizer: update diagram"
           body: "Automated update of the repo diagram"
           base: master
