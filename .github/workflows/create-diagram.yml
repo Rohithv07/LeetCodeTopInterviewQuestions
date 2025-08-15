@@ -13,19 +13,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: master
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Update diagram
-        uses: githubocto/repo-visualizer@main
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          excluded_paths: "ignore,.github"
+          node-version: 18
+
+      - name: Install repo-visualizer
+        run: npm install -g repo-visualizer
+
+      - name: Generate diagram
+        run: |
+          repo-visualizer \
+            --repo-path . \
+            --output diagram.svg \
+            --exclude "ignore,.github"
 
       - name: Commit diagram changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b update-diagram
+          git checkout -B update-diagram
           git add diagram.svg
           git commit -m "Repo visualizer: update diagram" || echo "No changes to commit"
 
