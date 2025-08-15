@@ -25,10 +25,10 @@ jobs:
           node-version: 18
 
       - name: Install repo-visualizer
-        run: npm install -g repo-visualizer
+        run: npm install repo-visualizer
 
       - name: Generate diagram
-        run: node $(npm root -g)/repo-visualizer/bin/repo-visualizer.js --repo-path . --output diagram.svg --exclude "ignore,.github"
+        run: node node_modules/repo-visualizer/bin/repo-visualizer.js --repo-path . --output diagram.svg --exclude "ignore,.github"
 
       - name: Commit diagram changes
         id: commit_changes
