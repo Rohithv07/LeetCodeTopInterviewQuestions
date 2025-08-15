@@ -28,11 +28,7 @@ jobs:
         run: npm install -g repo-visualizer
 
       - name: Generate diagram
-        run: |
-          repo-visualizer \
-            --repo-path . \
-            --output diagram.svg \
-            --exclude "ignore,.github"
+        run: npx repo-visualizer --repo-path . --output diagram.svg --exclude "ignore,.github"
 
       - name: Commit diagram changes
         id: commit_changes
