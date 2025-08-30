@@ -42,17 +42,18 @@ public class CollectingGame {
 		for (int index = 1; index < length; index++) {
 			prefix[index] = prefix[index - 1] + nums[index][0];
 		}
-		for (int index = 0; index < length; index++) {
-			int currentCount = index;
-			long currentScore = prefix[index];
-			int nextPossible = index + 1;
-			while (nextPossible < length && currentScore >= nums[nextPossible][0]) {
-				currentScore += nums[nextPossible][0];
-				currentCount++;
-				nextPossible++;
-			}
-			result[(int) nums[index][1]] = currentCount;
-		}
+        int[] removalCount = new int[length];
+        removalCount[length - 1] = length - 1;
+        for (int index = length - 2; index >= 0; index--) {
+            if (prefix[index] >= nums[index + 1][0]) {
+                removalCount[index] = removalCount[index + 1];
+            } else {
+                removalCount[index] = index;
+            }
+        }
+        for (int index = 0; index < length; index++) {
+            result[nums[index][1]] = removalCount[index];
+        }
 		return result;
 	}
 
