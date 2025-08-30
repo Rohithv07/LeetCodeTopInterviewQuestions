@@ -135,7 +135,7 @@ class SegmentTreeImpl {
 
 	}
 
-	public int querySumRange(int index, int low, int high, int l, int r, int value) {
+    public int querySumRange(int index, int low, int high, int l, int r) {
 		int leftIndex = 2 * index + 1;
 		int rightIndex = 2 * index + 2;
 		if (lazyNode[index] != 0) {
