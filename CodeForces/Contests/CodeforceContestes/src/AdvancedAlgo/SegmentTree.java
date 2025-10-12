@@ -155,8 +155,8 @@ class SegmentTreeImpl {
 			return segmentTree[index];
 		}
 		int middle = low + (high - low) / 2;
-		int leftSum = querySumRange(leftIndex, low, middle, l, r, value);
-		int rightSum = querySumRange(rightIndex, middle + 1, high, l, r, value);
+		int leftSum = querySumRange(leftIndex, low, middle, l, r);
+		int rightSum = querySumRange(rightIndex, middle + 1, high, l, r);
 		return leftSum + rightSum;
 	}
 
