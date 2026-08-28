@@ -12,8 +12,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
